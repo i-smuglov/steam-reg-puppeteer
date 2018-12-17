@@ -1,0 +1,16 @@
+{
+  "name": "steam-reg-puppet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "puppeteer": "^1.11.0",
+    "rucaptcha-solver": "^1.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "i.smuglov",
+  "license": "ISC"
+}
