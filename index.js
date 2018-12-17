@@ -8,26 +8,25 @@ const email = 'example@outlook.com';
 const emailPass = 'PsswrdExample#987';
 const steamAccName = 'NicknnameExample#987'; // Nicknname for steam
 const steamAccPass = 'PsswrdExample#987';
-
 // TODO: make all keys as .env variables
 
 // puppeteer start
 // TODO: make loop using array of users
 (async () => {
     const browser = await puppeteer.launch({headless: false});
+
+    // STEAM INITIAL FORM
     const page = await browser.newPage();
     await page.setViewport({width: 768, height: 1024, deviceScaleFactor: 2});
     await page.goto('https://store.steampowered.com/join');
     await page.type('input[name="email"]', email);
     await page.type('input[name="reenter_email"]', email);
     await page.click('#i_agree_check');
-    console.log('email');
     const imageSrc = await page.$eval('#captchaImg', el => el.src);
     const {id, answer} = await solver.solve(imageSrc);
     await page.type('input[name="captcha_text"]', answer);
     await page.waitFor(2000);
     await page.click('#createAccountButton');
-    console.log('button clicked');
     await page.waitFor(5000);
 
     // MAIL APPROVAL
@@ -56,14 +55,14 @@ const steamAccPass = 'PsswrdExample#987';
     await mail.click('[href^="https://store.steampowered.com/account/newaccountverification"]');
     await mail.waitFor(3000);
 
-    // PASSWORD AND NICKNAME APPROVAL
+    // STEAM PASSWORD AND NICKNAME APPROVAL
     await page.bringToFront();
     await page.waitFor(3000);
     await page.waitFor('#accountname');
     await page.type('#accountname', steamAccName);
-    // TODO: generate nickname automatically and pass validation
     await page.type('input[name="password"]', steamAccPass);
     await page.type('input[name="reenter_password"]', steamAccPass);
+    // TODO: generate nickname automatically and pass validation
     await page.waitFor(2000);
     await page.click('#createAccountButton');
 })();
